@@ -1,0 +1,19 @@
+
+    .axis path {
+        fill: none;
+        stroke: #49524c;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        font-family: Lato;
+        font-size: 13px;
+    }
+
+    .legend {
+        font-size: 14px;
+        font-weight: bold;
+        font-family: "PT Sans", sans-serif;
+        color: #4A4A4A;
+        line-height: 2;
+    }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test graphs</title>
+
+    <!--dependencies-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!--module itself-->
+    <script type="text/javascript" src="zeeguu_learner_graph_module.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+
+<agraph></agraph>
+<lgraph></lgraph>
+<pgraph></pgraph>
+
+<script>
+
+    // activity graph call
+    a_data = [{"date": "2016-06-01", "count": "123"}, {"date": "2016-05-28", "count": "5"}];
+    activity_graph(a_data, "agraph");
+
+    // line graph call
+    l_data = [
+        {"name": "Mathematics", "amount": "5", "date": "Aug 2015"}, {"name": "Mathematics", "amount": "6", "date": "Sep 2015"},
+        {"name": "Mathematics", "amount": "7", "date": "Oct 2015"}, {"name": "Mathematics", "amount": "8", "date": "Nov 2015"},
+        {"name": "Mathematics", "amount": "9", "date": "Dec 2015"}, {"name": "Mathematics", "amount": "8", "date": "Jan 2016"},
+        {"name": "Mathematics", "amount": "7", "date": "Feb 2016"}, {"name": "Mathematics", "amount": "6", "date": "Mar 2016"},
+        {"name": "Mathematics", "amount": "6", "date": "Apr 2016"}, {"name": "Mathematics", "amount": "6", "date": "May 2016"},
+        {"name": "Mathematics", "amount": "7", "date": "Jun 2016"}, {"name": "Mathematics", "amount": "7", "date": "Jul 2016"},
+        {"name": "History", "amount": "10", "date": "Aug 2015"}, {"name": "History", "amount": "8", "date": "Sep 2015"},
+        {"name": "History", "amount": "9", "date": "Oct 2015"}, {"name": "History", "amount": "8", "date": "Nov 2015"},
+        {"name": "History", "amount": "7", "date": "Dec 2015"}, {"name": "History", "amount": "6", "date": "Jan 2016"},
+        {"name": "History", "amount": "5", "date": "Feb 2016"}, {"name": "History", "amount": "6", "date": "Mar 2016"},
+        {"name": "History", "amount": "6", "date": "Apr 2016"}, {"name": "History", "amount": "7", "date": "May 2016"},
+        {"name": "History", "amount": "8", "date": "Jun 2016"}, {"name": "History", "amount": "9", "date": "Jul 2016"}
+    ];
+    line_graph(l_data, "lgraph");
+
+    // piechart graph call
+    p_data = [
+        {"label": "Example", "value": 111}, {"label": "Example1", "value": 111},
+        {"label": "Example2", "value": 111}, {"label": "Example3", "value": 111}
+    ];
+
+    piechart_graph(p_data, "pgraph");
+
+</script>
+
+</body>
+</html>
