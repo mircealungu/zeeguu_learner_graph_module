@@ -1,5 +1,4 @@
-
-// defined variables
+// defined variables for activity graph
 
 var cellSize = 20; // cell size
 var width = 60 * cellSize;
@@ -46,7 +45,7 @@ function week_number(date) {
 function total_bookmarks_per_displayed_period() {
     var sum = 0;
     input_data.forEach(function (entry) {
-        sum = sum + entry.count;
+        sum = sum +  parseInt(entry.count) ;
     });
     return sum;
 }
@@ -238,21 +237,21 @@ function draw_activity_graph(input_data_a, appendTo) {
     var html = "<br/><br/><br/>";
     html = html + '<div class="row" style="width: 850px;height: 80px; padding: 0px 50px;">';
     html = html + '<div class="col-xs-4 col-md-4">';
-    html = html + "<h4>Total in this period</h4> <h3>" + document.write(total_bookmarks_per_displayed_period() + " Total") + "</h3>";
+    html = html + "<h4>Translations in this period</h4> <h3>" + total_bookmarks_per_displayed_period() + " Total" + "</h3>";
     html = html + "</div>";
 
-    html = html + '<div class="col-xs-6 col-md-4" style="padding-left: 40px;"> <h4>Longest streak</h4>';
+    html = html + '<div class="col-xs-4 col-md-4" style="padding-left: 40px;"> <h4>Longest streak</h4>';
     var longest_streak_res = longest_streak();
-    html = html + "<h3>" + document.write(longest_streak_res + day_or_days(longest_streak_res)) + "</h3>";
+    html = html + "<h3>" + longest_streak_res + day_or_days(longest_streak_res) + "</h3>";
     html = html + "</div>";
 
     html = html + '<div class="col-xs-4 col-md-4" style="padding-left: 30px;"> <h4>Current streak</h4>';
     var current_streak_res = current_streak();
-    html = html + "<h3>" + document.write(current_streak_res + day_or_days(current_streak_res)) + "</h3>";
+    html = html + "<h3>" + current_streak_res + day_or_days(current_streak_res) + "</h3>";
     html = html + "</div>";
 
     html = html + "</div>";
 
-    $("#data").html(html);
+    document.write(html);
 
 }

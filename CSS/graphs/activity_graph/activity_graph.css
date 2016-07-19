@@ -47,3 +47,74 @@ body {
 .RdYlGn .q4-5 {
     fill: #304030
 }
+
+/*stylesheet style.css?e51a6469*/
+a {
+    background-color: transparent;
+}
+
+a:active, a:hover {
+    outline: 0px;
+}
+
+small {
+    font-size: 80%;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h3, h4 {
+    font-family: sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+    color: #4A4A4A;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-xs-4, .col-md-4, .col-xs-6, .col-md-10 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-4, .col-xs-6 {
+    float: left;
+}
+
+.col-xs-6 {
+    width: 50%;
+}
+
+.col-xs-4 {
+    width: 33.3333%;
+}
+
