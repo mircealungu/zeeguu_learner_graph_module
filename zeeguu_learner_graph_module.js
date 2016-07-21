@@ -26,8 +26,8 @@ function line_graph(input_data, appendTo){
 // initialization function for piechart graph
 // input json entry format should be :
 // [{"label": "Example", "value": 111 }]
-function piechart_graph(input_data, appendTo){
+function piechart_graph(input_data, appendTo, label){
     $("head").append('<link rel="stylesheet" type="text/css" href="CSS/graphs/piechart_graph/piechart_graph.css">');
     $("head").append('<script type="text/javascript" src="Scripts/graphs/piechart_graph/piechart_graph.js" charset="utf-8"></script>');
-    draw_piechart_graph(input_data, appendTo);
+    draw_piechart_graph(input_data, appendTo, label);
 }

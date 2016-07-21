@@ -1,7 +1,6 @@
 
-function draw_piechart_graph(input_data, appendTo) {
-
-    var label = "Top 10'000 Words ";
+function draw_piechart_graph(input_data, appendTo, label) {
+    
     var width = 560;
     var height = 360;
     var radius = Math.min(width, height) / 2;

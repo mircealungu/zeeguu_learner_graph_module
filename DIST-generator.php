@@ -20,24 +20,24 @@ $("head").append(\'<link href="https://fonts.googleapis.com/css?family=PT+Sans" 
 // input json entry format should be :
 // [{"date": "2016-05-28", "count": "123"}]
 function activity_graph(input_data, appendTo){
-append_css_for_activity_graph(appendTo);
-draw_activity_graph(input_data, appendTo);
+    append_css_for_activity_graph(appendTo);
+    draw_activity_graph(input_data, appendTo);
 }
 
 // initialization function for line graph
 // input json entry format should be :
 // [{"name": "Example", "amount": "123", "date": "Jan 2016"}]
 function line_graph(input_data, appendTo){
-append_css_for_line_graph(appendTo);
-draw_line_graph(input_data, appendTo);
+    append_css_for_line_graph(appendTo);
+    draw_line_graph(input_data, appendTo);
 }
 
 // initialization function for piechart graph
 // input json entry format should be :
 // [{"label": "Example", "value": 111 }]
-function piechart_graph(input_data, appendTo){
-append_css_for_piechart_graph(appendTo);
-draw_piechart_graph(input_data, appendTo);
+function piechart_graph(input_data, appendTo, label){
+    append_css_for_piechart_graph(appendTo);
+    draw_piechart_graph(input_data, appendTo, label);
 }
 ';
 
