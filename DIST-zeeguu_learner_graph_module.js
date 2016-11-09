@@ -79,7 +79,7 @@ function week_number(date) {
         result = ( cellSize * ( +week_format(date) - parseInt(week_count_in_displayed_interval) ) );
     } else {
         week_count_in_displayed_interval = week_format(new Date(year - 1, months_in_year - month - 1, days_in_month - day + 1));
-        result = ( cellSize * ( +week_format(date) + parseInt(week_count_in_displayed_interval) ) );
+        result = ( cellSize * ( +week_format(date) + parseInt(week_count_in_displayed_interval) - 1 ) );
     }
 
     return result;
