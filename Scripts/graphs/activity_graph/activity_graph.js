@@ -45,7 +45,7 @@ function week_number(date) {
 function total_bookmarks_per_displayed_period() {
     var sum = 0;
     input_data.forEach(function (entry) {
-        sum = sum +  parseInt(entry.count) ;
+        sum = sum + parseInt(entry.count);
     });
     return sum;
 }

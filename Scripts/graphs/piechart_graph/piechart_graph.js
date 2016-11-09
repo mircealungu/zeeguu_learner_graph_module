@@ -1,6 +1,6 @@
 
 function draw_piechart_graph(input_data, appendTo, label) {
-    
+
     var width = 560;
     var height = 360;
     var radius = Math.min(width, height) / 2;
@@ -64,8 +64,12 @@ function draw_piechart_graph(input_data, appendTo, label) {
     legend.append('rect')
         .attr('width', legendRectSize)
         .attr('height', legendRectSize)
-        .style('fill', function (entry, index) { return pie_slice_color(index) })
-        .style('stroke', function (entry, index) { return pie_slice_color(index) });
+        .style('fill', function (entry, index) {
+            return pie_slice_color(index);
+        })
+        .style('stroke', function (entry, index) {
+            return pie_slice_color(index);
+        });
 
     legend.append('text')
         .attr('x', legendRectSize + legendSpacing)
