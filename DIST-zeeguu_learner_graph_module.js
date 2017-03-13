@@ -1,6 +1,6 @@
 
 /**
-* Created by A.Lukjanenkovs on 21.06.2016. This DIST version generated on 10.11.2016
+* Created by A.Lukjanenkovs on 21.06.2016. This DIST version generated on 13.03.2017
 */
 
 
@@ -54,7 +54,7 @@ function week_number(date) {
         result = ( cellSize * ( +week_format(date) - parseInt(week_count_in_displayed_interval) ) );
     } else {
         week_count_in_displayed_interval = week_format(new Date(year - 1, months_in_year - month - 1, days_in_month - day + 1));
-        result = ( cellSize * ( +week_format(date) + parseInt(week_count_in_displayed_interval) ) );
+        result = ( cellSize * ( +week_format(date) + parseInt(week_count_in_displayed_interval) - 1 ) );
     }
 
     return result;
@@ -270,10 +270,9 @@ function draw_activity_graph(input_data_a, appendTo) {
 
 }
 
-function draw_line_graph(input_data, appendTo) {
+function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
 
     // fetching learner_stats_data from the server and parsing(nesting) it for d3js library
-
     var input_data_nested = d3.nest()
         .key(function (entry) {
             return entry.name;
@@ -283,8 +282,24 @@ function draw_line_graph(input_data, appendTo) {
     // end of the fetching and parsing learner_stats_data
 
     // setting up graph and its parameters
-    var WIDTH = 1200;
+    // graph's width adjusts based on the client window size
+    // max graph width is 1200px and min is 500px
+    if (!isNaN(win_width)) {
+        var WIDTH = Math.max(500 ,Math.min(1200, win_width));
+    }else{
+        var WIDTH = 1200;
+    }
     var HEIGHT = 500;
+
+    // how many months to show
+    if (isNaN(months_to_show)) {
+        var months_to_show = Math.round(WIDTH / 100);
+    }
+
+    // slice array and take only part we need based on how many months to show
+    input_data_nested.forEach(function(element) {
+        element.values = element.values.slice(-months_to_show-1, element.values.length);
+    });
 
     var line_graph = d3.select(appendTo)
         .append("svg")
@@ -309,7 +324,7 @@ function draw_line_graph(input_data, appendTo) {
     var month = date_of_today.getMonth();
 
     // in this case we don't care about precise day(date) ,because only months and year are used for this graph
-    var date_one_year_ago = new Date(year - 1, month, 1);
+    var date_one_year_ago = new Date(year - 1, month+(12-months_to_show), 1);
 
     var xScale = d3.time.scale()
         .range([MARGINS.left, WIDTH - MARGINS.right])
@@ -531,9 +546,9 @@ function activity_graph(input_data, appendTo){
 // initialization function for line graph
 // input json entry format should be :
 // [{"name": "Example", "amount": "123", "date": "Jan 2016"}]
-function line_graph(input_data, appendTo){
+function line_graph(input_data, appendTo, width, months_to_show){
     append_css_for_line_graph(appendTo);
-    draw_line_graph(input_data, appendTo);
+    draw_line_graph(input_data, appendTo, width, months_to_show);
 }
 
 // initialization function for piechart graph

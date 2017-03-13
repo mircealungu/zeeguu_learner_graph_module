@@ -1,8 +1,7 @@
 
-function draw_line_graph(input_data, appendTo, win_width) {
+function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
 
     // fetching learner_stats_data from the server and parsing(nesting) it for d3js library
-
     var input_data_nested = d3.nest()
         .key(function (entry) {
             return entry.name;
@@ -19,10 +18,17 @@ function draw_line_graph(input_data, appendTo, win_width) {
     }else{
         var WIDTH = 1200;
     }
-
     var HEIGHT = 500;
 
-    var months_to_show = WIDTH / 100;
+    // how many months to show
+    if (isNaN(months_to_show)) {
+        var months_to_show = Math.round(WIDTH / 100);
+    }
+
+    // slice array and take only part we need based on how many months to show
+    input_data_nested.forEach(function(element) {
+        element.values = element.values.slice(-months_to_show-1, element.values.length);
+    });
 
     var line_graph = d3.select(appendTo)
         .append("svg")

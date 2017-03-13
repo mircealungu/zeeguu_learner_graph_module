@@ -1,18 +1,26 @@
 
 window.onresize = resize;
+var global_months_to_show = 12;
 
 function resize() {
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
     // line graph resizing
     // 1200 px for full year
     // 100 px per month
-    var months_to_show = Math.min(12, Math.round(w / 100));
-    console.log("resize event detected! " +  " : " + months_to_show );
-
+    var months_to_show = Math.min(global_months_to_show, Math.round(width / 100));
     d3.selectAll('lgraph > svg').remove();
-    // var l_data_part = l_data.slice(-months_to_show, l_data.length); // optional
-    line_graph(l_data, "lgraph", months_to_show*100);
+    line_graph(l_data, "lgraph", width, months_to_show);
     // end of line graph resizing
 }
+
+function display_months(months_to_show){
+    var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+    d3.selectAll('lgraph > svg').remove();
+    global_months_to_show = months_to_show;
+    line_graph(l_data, "lgraph", width, months_to_show);
+}
+
+
 

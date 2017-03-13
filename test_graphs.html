@@ -19,7 +19,13 @@
 <agraph></agraph>
 <br/><br/><br/>
 <lgraph></lgraph>
-<br/><br/><br/>
+<br/>
+<center>
+<button onclick="display_months(6)" value="6 months">6 months</button>
+<button onclick="display_months(9)" value="9 months">9 months</button>
+<button onclick="display_months(12)" value="12 months">1 year</button>
+</center>
+<br/><br/>
 <pgraph></pgraph>
 
 <script>
@@ -44,9 +50,7 @@
         {"name": "History", "amount": "5", "date": "Feb 2017"}, {"name": "History", "amount": "6", "date": "Mar 2017"}
     ];
 
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var months_to_show = Math.min(12, Math.round(w / 100));
-    var window_width = months_to_show*100;
+    var window_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     line_graph(l_data, "lgraph", window_width);
 
     // piechart graph call
