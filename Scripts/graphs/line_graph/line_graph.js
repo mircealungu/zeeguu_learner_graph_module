@@ -25,6 +25,8 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
         var months_to_show = Math.round(WIDTH / 100);
     }
 
+    months_to_show = Math.max(5, months_to_show);
+
     // slice array and take only part we need based on how many months to show
     input_data_nested.forEach(function(element) {
         element.values = element.values.slice(-months_to_show-1, element.values.length);
