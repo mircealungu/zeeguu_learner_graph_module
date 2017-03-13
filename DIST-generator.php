@@ -69,9 +69,9 @@ function activity_graph(input_data, appendTo){
 // initialization function for line graph
 // input json entry format should be :
 // [{"name": "Example", "amount": "123", "date": "Jan 2016"}]
-function line_graph(input_data, appendTo){
+function line_graph(input_data, appendTo, width){
     append_css_for_line_graph(appendTo);
-    draw_line_graph(input_data, appendTo);
+    draw_line_graph(input_data, appendTo, width);
 }
 
 // initialization function for piechart graph

@@ -10,6 +10,7 @@
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <!--module itself-->
     <script type="text/javascript" src="zeeguu_learner_graph_module.js" charset="utf-8"></script>
+    <script type="text/javascript" src="mob_ver.js" charset="utf-8"></script>
 
 </head>
 
@@ -29,20 +30,24 @@
 
     // line graph call
     l_data = [
-        {"name": "Mathematics", "amount": "5", "date": "Aug 2015"}, {"name": "Mathematics", "amount": "6", "date": "Sep 2015"},
-        {"name": "Mathematics", "amount": "7", "date": "Oct 2015"}, {"name": "Mathematics", "amount": "8", "date": "Nov 2015"},
-        {"name": "Mathematics", "amount": "9", "date": "Dec 2015"}, {"name": "Mathematics", "amount": "8", "date": "Jan 2016"},
-        {"name": "Mathematics", "amount": "7", "date": "Feb 2016"}, {"name": "Mathematics", "amount": "6", "date": "Mar 2016"},
         {"name": "Mathematics", "amount": "6", "date": "Apr 2016"}, {"name": "Mathematics", "amount": "6", "date": "May 2016"},
         {"name": "Mathematics", "amount": "7", "date": "Jun 2016"}, {"name": "Mathematics", "amount": "7", "date": "Jul 2016"},
-        {"name": "History", "amount": "10", "date": "Aug 2015"}, {"name": "History", "amount": "8", "date": "Sep 2015"},
-        {"name": "History", "amount": "9", "date": "Oct 2015"}, {"name": "History", "amount": "8", "date": "Nov 2015"},
-        {"name": "History", "amount": "7", "date": "Dec 2015"}, {"name": "History", "amount": "6", "date": "Jan 2016"},
-        {"name": "History", "amount": "5", "date": "Feb 2016"}, {"name": "History", "amount": "6", "date": "Mar 2016"},
+        {"name": "Mathematics", "amount": "5", "date": "Aug 2016"}, {"name": "Mathematics", "amount": "6", "date": "Sep 2016"},
+        {"name": "Mathematics", "amount": "7", "date": "Oct 2016"}, {"name": "Mathematics", "amount": "8", "date": "Nov 2016"},
+        {"name": "Mathematics", "amount": "9", "date": "Dec 2016"}, {"name": "Mathematics", "amount": "8", "date": "Jan 2017"},
+        {"name": "Mathematics", "amount": "7", "date": "Feb 2017"}, {"name": "Mathematics", "amount": "6", "date": "Mar 2017"},
         {"name": "History", "amount": "6", "date": "Apr 2016"}, {"name": "History", "amount": "7", "date": "May 2016"},
-        {"name": "History", "amount": "8", "date": "Jun 2016"}, {"name": "History", "amount": "9", "date": "Jul 2016"}
+        {"name": "History", "amount": "8", "date": "Jun 2016"}, {"name": "History", "amount": "9", "date": "Jul 2016"},
+        {"name": "History", "amount": "10", "date": "Aug 2016"}, {"name": "History", "amount": "8", "date": "Sep 2016"},
+        {"name": "History", "amount": "9", "date": "Oct 2016"}, {"name": "History", "amount": "8", "date": "Nov 2016"},
+        {"name": "History", "amount": "7", "date": "Dec 2016"}, {"name": "History", "amount": "6", "date": "Jan 2017"},
+        {"name": "History", "amount": "5", "date": "Feb 2017"}, {"name": "History", "amount": "6", "date": "Mar 2017"}
     ];
-    line_graph(l_data, "lgraph");
+
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var months_to_show = Math.min(12, Math.round(w / 100));
+    var window_width = months_to_show*100;
+    line_graph(l_data, "lgraph", window_width);
 
     // piechart graph call
     p_data = [

@@ -1,5 +1,5 @@
 
-function draw_line_graph(input_data, appendTo) {
+function draw_line_graph(input_data, appendTo, win_width) {
 
     // fetching learner_stats_data from the server and parsing(nesting) it for d3js library
 
@@ -12,8 +12,17 @@ function draw_line_graph(input_data, appendTo) {
     // end of the fetching and parsing learner_stats_data
 
     // setting up graph and its parameters
-    var WIDTH = 1200;
+    // graph's width adjusts based on the client window size
+    // max graph width is 1200px and min is 500px
+    if (!isNaN(win_width)) {
+        var WIDTH = Math.max(500 ,Math.min(1200, win_width));
+    }else{
+        var WIDTH = 1200;
+    }
+
     var HEIGHT = 500;
+
+    var months_to_show = WIDTH / 100;
 
     var line_graph = d3.select(appendTo)
         .append("svg")
@@ -38,7 +47,7 @@ function draw_line_graph(input_data, appendTo) {
     var month = date_of_today.getMonth();
 
     // in this case we don't care about precise day(date) ,because only months and year are used for this graph
-    var date_one_year_ago = new Date(year - 1, month, 1);
+    var date_one_year_ago = new Date(year - 1, month+(12-months_to_show), 1);
 
     var xScale = d3.time.scale()
         .range([MARGINS.left, WIDTH - MARGINS.right])
