@@ -25,17 +25,23 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
         var months_to_show = Math.round(WIDTH / 100);
     }
 
-    months_to_show = Math.max(5, months_to_show);
+    var extraHeight = 0;
+    // check if 1 month was requested
+    if (months_to_show != 1) {
+        months_to_show = Math.max(5, months_to_show);
+        // slice array and take only part we need based on how many months to show
+        input_data_nested.forEach(function (element) {
+            element.values = element.values.slice(-months_to_show - 1, element.values.length);
+        });
+    }else{
+        extraHeight = 55; // added extraHeight for better displaying date names for month
+    }
 
-    // slice array and take only part we need based on how many months to show
-    input_data_nested.forEach(function(element) {
-        element.values = element.values.slice(-months_to_show-1, element.values.length);
-    });
 
     var line_graph = d3.select(appendTo)
         .append("svg")
         .attr("width", WIDTH)
-        .attr("height", HEIGHT);
+        .attr("height", HEIGHT+extraHeight);
 
     // offsets of the graph
     var MARGINS = {
@@ -54,8 +60,14 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
     var year = date_of_today.getFullYear();
     var month = date_of_today.getMonth();
 
-    // in this case we don't care about precise day(date) ,because only months and year are used for this graph
-    var date_one_year_ago = new Date(year - 1, month+(12-months_to_show), 1);
+    if (months_to_show == 1) {
+        var date = date_of_today.getDate();
+        var date_one_year_ago = new Date(year, month-1, date);
+    }else{
+        // in this case we don't care about precise day(date) ,because only months and year are used for this graph
+        var date_one_year_ago = new Date(year - 1, month+(12-months_to_show), 1);
+    }
+
 
     var xScale = d3.time.scale()
         .range([MARGINS.left, WIDTH - MARGINS.right])
@@ -70,10 +82,18 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
             })
         ]);
 
-    var xAxis = d3.svg.axis()
-        .scale(xScale)
-        .orient("bottom")
-        .tickFormat(d3.time.format("%b %Y"));
+
+    if (months_to_show == 1) {
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom").ticks(30)
+            .tickFormat(d3.time.format("%d %b %Y"));
+    }else{
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .tickFormat(d3.time.format("%b %Y"));
+    }
 
     var yAxis = d3.svg.axis()
         .scale(yScale)
@@ -81,10 +101,24 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
 
 
     // draw both axes with indicators
-    line_graph.append("svg:g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-        .call(xAxis);
+    if (months_to_show == 1) {
+        line_graph.append("svg:g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+            .call(xAxis)
+            .selectAll("text") // added to month
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", ".15em")
+                    .attr("transform", function(d) {
+                        return "rotate(-65)"
+                    });
+    }else{
+        line_graph.append("svg:g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+            .call(xAxis);
+    }
 
     line_graph.append("svg:g")
         .attr("class", "y axis")
@@ -95,9 +129,16 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
     var line_gen = d3.svg.line()
         .interpolate("basis")
         .x(function (entry) {
-            var entry_month_number = month_names.indexOf(entry.date.split(" ")[0]) + 1;
-            var entry_year = entry.date.split(" ")[1];
-            return xScale(new Date(entry_month_number + ".01." + entry_year));
+            if (months_to_show == 1) {
+                var entry_day = entry.date.split(" ")[0];
+                var entry_month_number = month_names.indexOf(entry.date.split(" ")[1]) + 1;
+                var entry_year = entry.date.split(" ")[2];
+            }else {
+                var entry_day = 1;
+                var entry_month_number = month_names.indexOf(entry.date.split(" ")[0]) + 1;
+                var entry_year = entry.date.split(" ")[1];
+            }
+            return xScale(new Date(entry_month_number + "." + entry_day + "." + entry_year));
         })
         .y(function (entry) {
             return yScale(entry.amount);
@@ -121,7 +162,7 @@ function draw_line_graph(input_data, appendTo, win_width, months_to_show) {
         // draw legends below the graph
         line_graph.append("text")
             .attr("x", (lSpace / 2) + index * lSpace)
-            .attr("y", HEIGHT - 10)
+            .attr("y", HEIGHT - 10 + extraHeight)
             .style("fill", "hsl(" + 200 + ",100%, " + color_tone + "% )")
             .attr("class", "legend")
             .on('click', function () {

@@ -26,32 +26,71 @@
 <button onclick="display_months(12)" value="12 months">1 year</button>
 </center>
 <br/><br/>
+
+<lgraph1></lgraph1>
+<br/><br/><br/>
 <pgraph></pgraph>
 
 <script>
 
+    function hideFunction(name){
+        document.getElementsByTagName(name)[0].style.display = "none";
+    }
+
+    function gen_data_for_ldata(names, startDate, for_days) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        var data_arr = [];
+        var currentDate = new Date();
+
+        for (var i = 0, len = names.length; i < len; i++) {
+            var name = names[i];
+            var startDate_t = new Date(startDate.getTime());
+            while (startDate_t <= currentDate) {
+                var amount = Math.floor((Math.random() * 100) + 1);
+
+                if (for_days == true) {
+                    var date = startDate_t.getDate() + " " + months[startDate_t.getMonth()] + " " + startDate_t.getFullYear();
+                }else{
+                    var date = months[startDate_t.getMonth()] + " " + startDate_t.getFullYear();
+                }
+
+                var new_entry = {"name": name, "amount": amount.toString(), "date": date};
+                data_arr.push(new_entry);
+
+                if (for_days == true) {
+                    startDate_t.setDate(startDate_t.getDate() + 1);
+                }else{
+                    startDate_t.setMonth(startDate_t.getMonth() + 1);
+                }
+            }
+        }
+
+        return data_arr;
+    }
+    
     // activity graph call
     a_data = [{"date": "2016-06-01", "count": "123"}, {"date": "2016-05-28", "count": "5"}];
     activity_graph(a_data, "agraph");
 
-    // line graph call
-    l_data = [
-        {"name": "Mathematics", "amount": "6", "date": "Apr 2016"}, {"name": "Mathematics", "amount": "6", "date": "May 2016"},
-        {"name": "Mathematics", "amount": "7", "date": "Jun 2016"}, {"name": "Mathematics", "amount": "7", "date": "Jul 2016"},
-        {"name": "Mathematics", "amount": "5", "date": "Aug 2016"}, {"name": "Mathematics", "amount": "6", "date": "Sep 2016"},
-        {"name": "Mathematics", "amount": "7", "date": "Oct 2016"}, {"name": "Mathematics", "amount": "8", "date": "Nov 2016"},
-        {"name": "Mathematics", "amount": "9", "date": "Dec 2016"}, {"name": "Mathematics", "amount": "8", "date": "Jan 2017"},
-        {"name": "Mathematics", "amount": "7", "date": "Feb 2017"}, {"name": "Mathematics", "amount": "6", "date": "Mar 2017"},
-        {"name": "History", "amount": "6", "date": "Apr 2016"}, {"name": "History", "amount": "7", "date": "May 2016"},
-        {"name": "History", "amount": "8", "date": "Jun 2016"}, {"name": "History", "amount": "9", "date": "Jul 2016"},
-        {"name": "History", "amount": "10", "date": "Aug 2016"}, {"name": "History", "amount": "8", "date": "Sep 2016"},
-        {"name": "History", "amount": "9", "date": "Oct 2016"}, {"name": "History", "amount": "8", "date": "Nov 2016"},
-        {"name": "History", "amount": "7", "date": "Dec 2016"}, {"name": "History", "amount": "6", "date": "Jan 2017"},
-        {"name": "History", "amount": "5", "date": "Feb 2017"}, {"name": "History", "amount": "6", "date": "Mar 2017"}
-    ];
-
+    // line graph call with months
     var window_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var names = ["Mathematics", "History"];
+
+    var start_date = new Date();
+    start_date.setFullYear( start_date.getFullYear() - 1 );
+
+    l_data = gen_data_for_ldata(names, start_date, false);
     line_graph(l_data, "lgraph", window_width);
+
+
+    // line graph call with days
+    var start_date = new Date();
+    start_date.setMonth( start_date.getMonth() - 1 );
+
+    l_data1 = gen_data_for_ldata(names, start_date, true);
+    line_graph(l_data1, "lgraph1", window_width, 1);
+
 
     // piechart graph call
     p_data = [
@@ -62,6 +101,11 @@
     piechart_graph(p_data, "pgraph", "Test");
 
 </script>
+
+<br/><br/>
+<button onclick="hideFunction('agraph')" value="agraph">Hide agraph</button>
+<button onclick="hideFunction('pgraph')" value="pgraph">Hide pgraph</button>
+<br/><br/>
 
 </body>
 </html>

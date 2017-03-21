@@ -231,23 +231,23 @@ function draw_activity_graph(input_data_a, appendTo) {
     input_data.sort(compare_dates_strings); // sort array based on the dates
 
     var html = "<br/><br/><br/>";
-    html = html + '<div class="row" style="width: 850px;height: 80px; padding: 0px 50px;">';
-    html = html + '<div class="col-xs-4 col-md-4">';
-    html = html + "<h4>Translations in this period</h4> <h3>" + total_bookmarks_per_displayed_period() + " Total" + "</h3>";
-    html = html + "</div>";
+    html += '<div class="row" style="width: 850px;height: 80px; padding: 0px 50px;">';
+    html += '<div class="col-xs-4 col-md-4">';
+    html += "<h4>Translations in this period</h4> <h3>" + total_bookmarks_per_displayed_period() + " Total" + "</h3>";
+    html += "</div>";
 
-    html = html + '<div class="col-xs-4 col-md-4" style="padding-left: 40px;"> <h4>Longest streak</h4>';
+    html += '<div class="col-xs-4 col-md-4" style="padding-left: 40px;"> <h4>Longest streak</h4>';
     var longest_streak_res = longest_streak();
-    html = html + "<h3>" + longest_streak_res + day_or_days(longest_streak_res) + "</h3>";
-    html = html + "</div>";
+    html += "<h3>" + longest_streak_res + day_or_days(longest_streak_res) + "</h3>";
+    html += "</div>";
 
-    html = html + '<div class="col-xs-4 col-md-4" style="padding-left: 30px;"> <h4>Current streak</h4>';
+    html += '<div class="col-xs-4 col-md-4" style="padding-left: 30px;"> <h4>Current streak</h4>';
     var current_streak_res = current_streak();
-    html = html + "<h3>" + current_streak_res + day_or_days(current_streak_res) + "</h3>";
-    html = html + "</div>";
+    html += "<h3>" + current_streak_res + day_or_days(current_streak_res) + "</h3>";
+    html += "</div>";
 
-    html = html + "</div>";
+    html += "</div>";
 
-    document.write(html);
+    $(html).appendTo( document.getElementsByTagName(appendTo)[0] );
 
 }
