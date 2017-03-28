@@ -100,8 +100,9 @@ Full example of 1 year period :
     ];
     
     
-    // call the function (js)
+    // get the window with to make the graph fit to its width
     var window_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    // call the function (js)
     line_graph(l_data, "lgraph", window_width);
 ```
 
